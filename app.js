@@ -8,6 +8,11 @@ const EMAILJS_CONFIG = {
     publicKey: 'YlgyKX0_nVeBbDxA4'
 };
 
+// Inicializar EmailJS
+(function() {
+    emailjs.init(EMAILJS_CONFIG.publicKey);
+})();
+
 // Função para enviar agendamento
 function enviarAgendamento(formData) {
     const templateParams = {
@@ -40,7 +45,6 @@ O aluno gostaria de agendar uma aula.
     );
 }
 
-
 // Função para enviar contacto
 function enviarContacto(formData) {
     const templateParams = {
@@ -53,12 +57,12 @@ function enviarContacto(formData) {
         message: `
 Nova mensagem de contacto:
 
-Nome: ${formData.nome}
-Email: ${formData.email}
-Telefone: ${formData.telefone || 'Não fornecido'}
-Matéria: ${formData.materia}
+👤 Nome: ${formData.nome}
+📧 Email: ${formData.email}
+📞 Telefone: ${formData.telefone || 'Não fornecido'}
+📚 Matéria: ${formData.materia}
 
-Mensagem:
+💬 Mensagem:
 ${formData.mensagem}
         `.trim()
     };
@@ -70,9 +74,13 @@ ${formData.mensagem}
     );
 }
 
-// Main JavaScript functionality for the tutoring website
+// ========================
+// MAIN WEBSITE FUNCTIONALITY
+// ========================
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Website carregado - EmailJS inicializado');
+    
     // Navigation elements
     const navbar = document.getElementById('navbar');
     const navToggle = document.getElementById('nav-toggle');
@@ -91,10 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Other elements
     const saberMaisBtn = document.getElementById('saber-mais');
 
-    // Debug: Log elements to check if they exist
-    console.log('Modal element:', scheduleModal);
-    console.log('Agendar buttons:', agendarBtns);
-    console.log('Close modal button:', closeModal);
+    // Debug
+    console.log('📧 EmailJS Config:', EMAILJS_CONFIG);
 
     // Mobile Navigation Toggle
     if (navToggle && navMenu) {
@@ -102,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
             
-            // Prevent body scroll when menu is open
             if (navMenu.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -122,15 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (navbar && navMenu && !navbar.contains(e.target) && navMenu.classList.contains('active')) {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
-
     // Navbar scroll effects
     window.addEventListener('scroll', function() {
         if (navbar) {
@@ -140,11 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 navbar.classList.remove('scrolled');
             }
         }
-
-        // Update active navigation link based on scroll position
         updateActiveNavLink();
-        
-        // Trigger animations for elements coming into view
         animateOnScroll();
     });
 
@@ -190,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.getElementById(targetId);
             
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
+                const offsetTop = targetSection.offsetTop - 80;
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -213,450 +205,175 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Modal functionality - Fixed implementation
-    function initializeModal() {
-        console.log('Initializing modal functionality');
-        
-        // Get all agendar buttons including the one in navbar
-        const allAgendarBtns = [
-            document.getElementById('agendar-btn'),
-            document.getElementById('hero-cta'),
-            document.querySelector('.cta-btn')
-        ].filter(Boolean);
-
-        console.log('Found agendar buttons:', allAgendarBtns);
-
-        allAgendarBtns.forEach(btn => {
-            if (btn) {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Agendar button clicked');
-                    openModal();
-                });
-            }
-        });
-
-        if (closeModal) {
-            closeModal.addEventListener('click', function(e) {
-                e.preventDefault();
-                closeModalHandler();
-            });
-        }
-
-        // Close modal when clicking outside
-        if (scheduleModal) {
-            scheduleModal.addEventListener('click', function(e) {
-                if (e.target === scheduleModal) {
-                    closeModalHandler();
-                }
-            });
-        }
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && scheduleModal && !scheduleModal.classList.contains('hidden')) {
-                closeModalHandler();
-            }
-        });
-    }
-
+    // Modal functionality
     function openModal() {
-        console.log('Opening modal');
         if (scheduleModal) {
             scheduleModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             
-            // Focus on first input
             const firstInput = scheduleModal.querySelector('input');
             if (firstInput) {
                 setTimeout(() => firstInput.focus(), 100);
             }
-        } else {
-            console.error('Schedule modal not found');
         }
     }
 
     function closeModalHandler() {
-        console.log('Closing modal');
         if (scheduleModal) {
             scheduleModal.classList.add('hidden');
             document.body.style.overflow = '';
             
-            // Reset form
             if (scheduleForm) {
                 scheduleForm.reset();
             }
         }
     }
 
-    // Initialize modal after DOM is ready
-    initializeModal();
+    // Agendar buttons
+    agendarBtns.forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+        }
+    });
 
+    // Close modal
+    if (closeModal) {
+        closeModal.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModalHandler();
+        });
+    }
+
+    // Close modal when clicking outside
+    if (scheduleModal) {
+        scheduleModal.addEventListener('click', function(e) {
+            if (e.target === scheduleModal) {
+                closeModalHandler();
+            }
+        });
+    }
+
+    // ========================
+    // FORM SUBMISSIONS - CORRIGIDO
+    // ========================
+
+    // Schedule Form Submission
+    if (scheduleForm) {
+        scheduleForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('📝 Formulário de agendamento submetido');
+            
+            const formData = {
+                nome: document.getElementById('modal-nome').value.trim(),
+                email: document.getElementById('modal-email').value.trim(),
+                telefone: document.getElementById('modal-telefone').value.trim(),
+                materia: document.getElementById('modal-materia').value,
+                modalidade: document.getElementById('modal-modalidade').value,
+                mensagem: document.getElementById('modal-mensagem').value.trim()
+            };
+            
+            console.log('📋 Dados do formulário:', formData);
+            
+            // Validação básica
+            if (!formData.nome || !formData.email || !formData.materia || !formData.modalidade) {
+                alert('❌ Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                alert('❌ Por favor, introduza um email válido.');
+                return;
+            }
+            
+            // Loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+            
+            console.log('📧 Enviando email...');
+            
+            // Send email
+            enviarAgendamento(formData)
+                .then(function(response) {
+                    console.log('✅ Email enviado com sucesso:', response);
+                    alert('✅ Agendamento solicitado com sucesso!\n\nO Professor Hugo entrará em contacto brevemente.');
+                    
+                    scheduleForm.reset();
+                    closeModalHandler();
+                })
+                .catch(function(error) {
+                    console.error('❌ Erro ao enviar email:', error);
+                    alert('❌ Erro ao enviar solicitação.\n\nTente contactar diretamente:\n📞 +351 933 237 805\n📧 hugodcnt@hotmail.pt');
+                })
+                .finally(function() {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                });
+        });
+    }
+    
     // Contact Form Submission
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            handleFormSubmission(this, 'Mensagem enviada com sucesso! Entrarei em contacto brevemente.');
-        });
-    }
-
-    // Schedule Form Submission
-if (scheduleForm) {
-    scheduleForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            nome: document.getElementById('modal-nome').value.trim(),
-            email: document.getElementById('modal-email').value.trim(),
-            telefone: document.getElementById('modal-telefone').value.trim(), // NOVO
-            materia: document.getElementById('modal-materia').value,
-            modalidade: document.getElementById('modal-modalidade').value,
-            mensagem: document.getElementById('modal-mensagem').value.trim() // NOVO
-        };
-        
-        // Validação
-        if (!validateForm(this)) {
-            return;
-        }
-        
-        handleEmailSubmission(this, formData, 'agendamento');
-    });
-}
-
-    // Generic form submission handler
-    function handleFormSubmission(form, successMessage) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        
-        // Validate form
-        if (!validateForm(form)) {
-            return;
-        }
-        
-        // Show loading state
-        submitBtn.classList.add('loading');
-        submitBtn.textContent = 'Enviando...';
-        submitBtn.disabled = true;
-        
-        // Simulate form submission (replace with actual submission logic)
-        setTimeout(() => {
-            // Reset button state
-            submitBtn.classList.remove('loading');
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
+            console.log('📝 Formulário de contacto submetido');
             
-            // Show success message
-            showNotification(successMessage, 'success');
+            const formData = {
+                nome: document.getElementById('nome').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                telefone: document.getElementById('telefone').value.trim(),
+                materia: document.getElementById('materia').value,
+                mensagem: document.getElementById('mensagem').value.trim()
+            };
             
-            // Reset form
-            form.reset();
-        }, 2000);
-    }
-
-    // Form validation
-    function validateForm(form) {
-        const requiredFields = form.querySelectorAll('[required]');
-        let isValid = true;
-        
-        requiredFields.forEach(field => {
-            removeFieldError(field);
+            console.log('📋 Dados do contacto:', formData);
             
-            if (!field.value.trim()) {
-                showFieldError(field, 'Este campo é obrigatório');
-                isValid = false;
-            } else if (field.type === 'email' && !isValidEmail(field.value)) {
-                showFieldError(field, 'Por favor, insira um email válido');
-                isValid = false;
+            // Validação
+            if (!formData.nome || !formData.email || !formData.materia || !formData.mensagem) {
+                alert('❌ Por favor, preencha todos os campos obrigatórios.');
+                return;
             }
-        });
-        
-        return isValid;
-    }
 
-    // Email validation
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    // Show field error
-    function showFieldError(field, message) {
-        field.classList.add('error');
-        
-        // Remove existing error message
-        const existingError = field.parentNode.querySelector('.error-message');
-        if (existingError) {
-            existingError.remove();
-        }
-        
-        // Add error message
-        const errorElement = document.createElement('div');
-        errorElement.className = 'error-message';
-        errorElement.textContent = message;
-        errorElement.style.color = 'var(--color-error)';
-        errorElement.style.fontSize = 'var(--font-size-sm)';
-        errorElement.style.marginTop = 'var(--space-4)';
-        
-        field.parentNode.appendChild(errorElement);
-    }
-
-    // Remove field error
-    function removeFieldError(field) {
-        field.classList.remove('error');
-        const errorMessage = field.parentNode.querySelector('.error-message');
-        if (errorMessage) {
-            errorMessage.remove();
-        }
-    }
-
-    // Clear field errors on input
-    document.addEventListener('input', function(e) {
-        if (e.target.classList.contains('form-control')) {
-            removeFieldError(e.target);
-        }
-    });
-
-    // Fix for dropdown functionality - ensure proper styling
-    document.addEventListener('click', function(e) {
-        const selectElements = document.querySelectorAll('select.form-control');
-        selectElements.forEach(select => {
-            // Force focus on select elements when clicked
-            if (e.target === select) {
-                select.focus();
-                // Trigger change event to ensure proper styling
-                select.dispatchEvent(new Event('focus'));
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                alert('❌ Por favor, introduza um email válido.');
+                return;
             }
-        });
-    });
-
-    // Enhance select elements
-    const selectElements = document.querySelectorAll('select.form-control');
-    selectElements.forEach(select => {
-        // Add focus and blur events for better UX
-        select.addEventListener('focus', function() {
-            this.style.borderColor = 'var(--color-primary)';
-        });
-        
-        select.addEventListener('blur', function() {
-            this.style.borderColor = 'var(--color-border)';
-        });
-        
-        select.addEventListener('change', function() {
-            // Remove any existing errors when user makes a selection
-            removeFieldError(this);
-        });
-    });
-
-    // Notification system
-    function showNotification(message, type = 'info') {
-        // Remove existing notifications
-        const existingNotifications = document.querySelectorAll('.notification');
-        existingNotifications.forEach(notification => notification.remove());
-        
-        const notification = document.createElement('div');
-        notification.className = `notification notification--${type}`;
-        notification.textContent = message;
-        
-        // Notification styles
-        const colorVar = type === 'success' ? 'success' : type === 'error' ? 'error' : 'info';
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: var(--color-surface);
-            color: var(--color-text);
-            padding: var(--space-16) var(--space-20);
-            border-radius: var(--radius-base);
-            box-shadow: var(--shadow-lg);
-            border-left: 4px solid var(--color-${colorVar});
-            z-index: 3000;
-            max-width: 400px;
-            animation: slideIn 0.3s ease-out;
-            font-weight: var(--font-weight-medium);
-        `;
-        
-        document.body.appendChild(notification);
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.style.animation = 'fadeOut 0.3s ease-out forwards';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.remove();
-                    }
-                }, 300);
-            }
-        }, 5000);
-        
-        // Remove on click
-        notification.addEventListener('click', function() {
-            this.style.animation = 'fadeOut 0.3s ease-out forwards';
-            setTimeout(() => {
-                if (this.parentNode) {
-                    this.remove();
-                }
-            }, 300);
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+            
+            console.log('📧 Enviando contacto...');
+            
+            enviarContacto(formData)
+                .then(function(response) {
+                    console.log('✅ Contacto enviado com sucesso:', response);
+                    alert('✅ Mensagem enviada com sucesso!\n\nO Professor Hugo entrará em contacto brevemente.');
+                    contactForm.reset();
+                })
+                .catch(function(error) {
+                    console.error('❌ Erro ao enviar contacto:', error);
+                    alert('❌ Erro ao enviar mensagem.\n\nTente contactar diretamente:\n📞 +351 933 237 805\n📧 hugodcnt@hotmail.pt');
+                })
+                .finally(function() {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                });
         });
     }
 
-    // Service card hover effects
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            if (!this.classList.contains('service-card--featured')) {
-                this.style.transform = 'translateY(-8px)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            if (!this.classList.contains('service-card--featured')) {
-                this.style.transform = 'translateY(0)';
-            }
-        });
-    });
-
-    // Testimonial card animations
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-    testimonialCards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.1}s`;
-    });
-
-    // Contact info item hover effects
-    const contactItems = document.querySelectorAll('.contact-item');
-    contactItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-            this.style.boxShadow = 'var(--shadow-md)';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = '';
-        });
-    });
-
-    // Initialize animations on page load
+    // Initialize animations
     setTimeout(() => {
         animateOnScroll();
     }, 100);
 
-    // Performance optimization: Throttle scroll events
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
-        
-        scrollTimeout = setTimeout(() => {
-            updateActiveNavLink();
-            animateOnScroll();
-        }, 10);
-    }, { passive: true });
-
-    // Add CSS for animations that aren't in the main stylesheet
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-                transform: scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-        }
-        
-        .form-control.error {
-            border-color: var(--color-error) !important;
-            box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.1) !important;
-        }
-        
-        .notification {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .notification:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Ensure select elements work properly */
-        select.form-control {
-            cursor: pointer;
-            background-color: var(--color-surface);
-        }
-
-        select.form-control:focus {
-            outline: none;
-        }
-
-        select.form-control option {
-            background-color: var(--color-surface);
-            color: var(--color-text);
-            padding: var(--space-8);
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Add structured data for SEO (JSON-LD)
-    const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "EducationalOrganization",
-        "name": "Professor João Explicações",
-        "description": "Explicações personalizadas de Matemática, Física, Química e Inglês com metodologia comprovada e 10+ anos de experiência",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Lisboa",
-            "addressCountry": "Portugal"
-        },
-        "telephone": "+351 912 345 678",
-        "email": "joao.explicacoes@email.pt",
-        "offers": [
-            {
-                "@type": "Offer",
-                "name": "Explicações de Matemática",
-                "price": "15",
-                "priceCurrency": "EUR"
-            },
-            {
-                "@type": "Offer", 
-                "name": "Explicações de Física e Química",
-                "price": "18",
-                "priceCurrency": "EUR"
-            },
-            {
-                "@type": "Offer",
-                "name": "Explicações de Inglês", 
-                "price": "12",
-                "priceCurrency": "EUR"
-            },
-            {
-                "@type": "Offer",
-                "name": "Preparação para Exames",
-                "price": "20", 
-                "priceCurrency": "EUR"
-            }
-        ]
-    };
-
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(structuredData);
-    document.head.appendChild(script);
-
-    console.log('Professor João Explicações - Website inicializado com sucesso! 🎓');
+    console.log('✅ Professor Hugo - Catálise Estudos inicializado com sucesso!');
 });
