@@ -392,3 +392,43 @@ Data: ${new Date().toLocaleDateString('pt-PT')} às ${new Date().toLocaleTimeStr
     console.log('✅ Website Catálise Estudos inicializado com sucesso!');
     console.log('📧 EmailJS funcionando - Formulários prontos para uso');
 });
+
+
+// ========================
+// MOBILE DEBUG E FIXES
+// ========================
+
+function debugMobile() {
+    console.log('📱 Debug Mobile:');
+    console.log('- Largura da tela:', window.innerWidth);
+    console.log('- Theme toggle existe:', !!document.getElementById('theme-toggle'));
+    console.log('- Nav controls existe:', !!document.querySelector('.nav-controls'));
+    console.log('- Nav content existe:', !!document.querySelector('.nav-content'));
+    
+    // Força a visibilidade dos elementos críticos no mobile
+    if (window.innerWidth <= 768) {
+        const navControls = document.querySelector('.nav-controls');
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        if (navControls) {
+            navControls.style.display = 'flex';
+            navControls.style.order = '2';
+            console.log('✅ Nav controls forçado');
+        }
+        
+        if (themeToggle) {
+            themeToggle.style.display = 'flex';
+            console.log('✅ Theme toggle forçado');
+        }
+    }
+}
+
+// Chamar debug quando carregar
+window.addEventListener('load', function() {
+    debugMobile();
+});
+
+// Chamar debug quando redimensionar
+window.addEventListener('resize', function() {
+    debugMobile();
+});

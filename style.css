@@ -1658,180 +1658,374 @@ select:focus {
 }
 
 /* ==============================================
-   MELHORIAS PARA O MODAL DE AGENDAMENTO
+   THEME TOGGLE E MELHORIAS MOBILE
    ============================================== */
 
-/* Melhorar o modal */
-.modal-content {
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
+/* Layout base da navegação - corrigido */
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-16) 0;
+  position: relative;
 }
 
-.modal-body {
-    padding: 2rem;
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(var(--color-teal-300-rgb), 0.1);
+  border: 1px solid rgba(var(--color-teal-300-rgb), 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+  color: var(--color-teal-300);
+  flex-shrink: 0;
 }
 
-.form-group:last-of-type {
-    margin-bottom: 2rem;
+.theme-toggle:hover {
+  background: rgba(var(--color-teal-300-rgb), 0.2);
+  transform: scale(1.1);
 }
 
-/* Textarea específico para modal */
-#modal-mensagem {
-    resize: vertical;
-    min-height: 100px;
-    font-family: var(--font-family-base);
-    font-size: var(--font-size-base);
+.theme-toggle:active {
+  transform: scale(0.95);
 }
 
-/* WhatsApp Button Flutuante */
+.theme-toggle i {
+  font-size: 18px;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+/* Dark mode icon rotation */
+[data-color-scheme="dark"] .theme-toggle i {
+  transform: rotate(180deg);
+}
+
+/* WhatsApp button flutuante */
 .whatsapp-float {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25D366;
-    color: #fff;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-    z-index: 1000;
-    animation: whatsapp-pulse 2s infinite;
-    transition: all 0.3s ease;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: whatsapp-pulse 2s infinite;
+  transition: all 0.3s ease;
 }
 
 .whatsapp-float a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    color: white;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-decoration: none;
 }
 
 .whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+  transform: scale(1.1);
+  box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
 }
 
 /* Animação de pulso para WhatsApp */
 @keyframes whatsapp-pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-    }
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
 }
 
-/* Social Links Melhorados */
+/* Social Links melhorados */
 .social-links a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: var(--color-primary, #007bff);
-    color: white;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 18px;
-    transition: all 0.3s ease;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 18px;
+  transition: all 0.3s ease;
 }
 
 .social-links a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* WhatsApp - cor verde */
 .social-links a[href*="wa.me"] {
-    background: #25D366;
+  background: #25D366 !important;
 }
 
 .social-links a[href*="wa.me"]:hover {
-    background: #128C7E;
+  background: #128C7E !important;
 }
 
 /* LinkedIn - cor azul */
 .social-links a[href*="linkedin"] {
-    background: #0077B5;
+  background: #0077B5 !important;
 }
 
 .social-links a[href*="linkedin"]:hover {
-    background: #005582;
+  background: #005582 !important;
 }
 
-/* Links de contacto melhorados */
-.contact-item a {
-    color: var(--color-primary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.contact-item a:hover {
-    color: var(--color-primary-hover);
-    text-decoration: underline;
-}
-
-/* Responsivo para modal e WhatsApp */
+/* MOBILE RESPONSIVE - VERSÃO CORRIGIDA */
 @media (max-width: 768px) {
-    .modal-body {
-        padding: 1.5rem;
-    }
-    
-    .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        font-size: 25px;
-        bottom: 15px;
-        right: 15px;
-    }
+  
+  /* Sobrescrever navegação mobile existente */
+  .nav-content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: var(--space-12) 0 !important;
+    width: 100% !important;
+  }
+  
+  /* Logo mobile - ordem 1 */
+  .nav-logo {
+    order: 1 !important;
+    font-size: var(--font-size-lg) !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .nav-logo i {
+    font-size: var(--font-size-xl) !important;
+  }
+  
+  /* Menu mobile - manter posição existente mas ajustar ordem */
+  .nav-menu {
+    position: fixed !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: var(--color-surface) !important;
+    flex-direction: column !important;
+    padding: var(--space-24) !important;
+    gap: var(--space-16) !important;
+    box-shadow: var(--shadow-lg) !important;
+    transform: translateY(-100%) !important;
+    transition: transform var(--duration-normal) var(--ease-standard) !important;
+    z-index: 1000 !important;
+    border-top: 1px solid var(--color-border) !important;
+    order: 4 !important;
+  }
+  
+  .nav-menu.active {
+    transform: translateY(0) !important;
+  }
+  
+  /* Controlos mobile - ordem 2 (entre logo e hamburger) */
+  .nav-controls {
+    order: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--space-12) !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Theme toggle mobile - forçar visibilidade */
+  .theme-toggle {
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    background: rgba(var(--color-teal-300-rgb), 0.15) !important;
+    border: 1px solid rgba(var(--color-teal-300-rgb), 0.4) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .theme-toggle i {
+    font-size: 16px !important;
+  }
+  
+  /* CTA button - ocultar no mobile */
+  .nav-controls .cta-btn {
+    display: none !important;
+  }
+  
+  /* Nav toggle - ordem 3 (direita) */
+  .nav-toggle {
+    display: flex !important;
+    order: 3 !important;
+    flex-shrink: 0 !important;
+    margin-left: var(--space-8) !important;
+  }
+  
+  /* WhatsApp button mobile */
+  .whatsapp-float {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 25px !important;
+    bottom: 15px !important;
+    right: 15px !important;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .nav-content {
+    padding: var(--space-8) 0 !important;
+  }
+  
+  .nav-logo {
+    font-size: var(--font-size-md) !important;
+  }
+  
+  /* Manter só o ícone do logo */
+  .nav-logo span {
+    display: none !important;
+  }
+  
+  .nav-controls {
+    gap: var(--space-8) !important;
+  }
+  
+  .theme-toggle {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .theme-toggle i {
+    font-size: 14px !important;
+  }
+}
+
+/* Theme toggle animation */
+@keyframes themeSwitch {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(90deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(180deg) scale(1);
+  }
+}
+
+.theme-toggle.switching i {
+  animation: themeSwitch 0.6s ease-in-out;
+}
+
+/* Smooth transitions para theme */
+html {
+  transition: background-color var(--duration-normal) var(--ease-standard) !important;
+}
+
+body {
+  transition: background-color var(--duration-normal) var(--ease-standard),
+              color var(--duration-normal) var(--ease-standard) !important;
 }
 
 /* Form validation styles */
 .form-control.error {
-    border-color: var(--color-error) !important;
-    box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.1) !important;
+  border-color: var(--color-error) !important;
+  box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.1) !important;
 }
 
 .error-message {
-    color: var(--color-error);
-    font-size: var(--font-size-sm);
-    margin-top: var(--space-4);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-4);
+}
+
+/* Melhorar o modal */
+.modal-content {
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 2rem;
+}
+
+/* Textarea específico para modal */
+#modal-mensagem {
+  resize: vertical;
+  min-height: 100px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+}
+
+/* Responsivo para modal */
+@media (max-width: 768px) {
+  .modal-body {
+    padding: 1.5rem;
+  }
 }
 
 /* Notification improvements */
 .notification {
-    font-family: var(--font-family-base);
-    line-height: 1.5;
+  font-family: var(--font-family-base);
+  line-height: 1.5;
 }
 
 .notification--success {
-    border-left-color: var(--color-success);
+  border-left-color: var(--color-success);
 }
 
 .notification--error {
-    border-left-color: var(--color-error);
+  border-left-color: var(--color-error);
 }
 
 /* Loading state improvements */
 .btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    pointer-events: none;
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
 }
 
 .btn .fa-spinner {
-    margin-right: var(--space-8);
+  margin-right: var(--space-8);
+}
+
+/* Links de contacto melhorados */
+.contact-item a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/*  Garantir que o CSS custom não seja sobrescrito */
+.nav-controls, .theme-toggle {
+  z-index: 1001 !important;
 }
