@@ -1,3 +1,75 @@
+// ========================
+// EMAILJS CONFIGURATION
+// ========================
+
+const EMAILJS_CONFIG = {
+    serviceID: 'service_nooo1v5',
+    templateID: 'template_g99r5xc',
+    publicKey: 'YlgyKX0_nVeBbDxA4'
+};
+
+// Função para enviar agendamento
+function enviarAgendamento(formData) {
+    const templateParams = {
+        from_name: formData.nome,
+        from_email: formData.email,
+        to_name: "Professor Hugo",
+        materia: formData.materia,
+        modalidade: formData.modalidade,
+        data_atual: new Date().toLocaleDateString('pt-PT'),
+        message: `
+Nova solicitação de agendamento de aula:
+
+👤 Nome: ${formData.nome}
+📧 Email: ${formData.email}
+📞 Telefone: ${formData.telefone || 'Não fornecido'}
+📚 Matéria: ${formData.materia}
+🎯 Modalidade: ${formData.modalidade}
+
+💬 Mensagem do aluno:
+${formData.mensagem || 'Sem mensagem adicional'}
+
+O aluno gostaria de agendar uma aula.
+        `.trim()
+    };
+
+    return emailjs.send(
+        EMAILJS_CONFIG.serviceID, 
+        EMAILJS_CONFIG.templateID, 
+        templateParams
+    );
+}
+
+
+// Função para enviar contacto
+function enviarContacto(formData) {
+    const templateParams = {
+        from_name: formData.nome,
+        from_email: formData.email,
+        to_name: "Professor Hugo",
+        materia: formData.materia,
+        modalidade: 'Contacto Geral',
+        data_atual: new Date().toLocaleDateString('pt-PT'),
+        message: `
+Nova mensagem de contacto:
+
+Nome: ${formData.nome}
+Email: ${formData.email}
+Telefone: ${formData.telefone || 'Não fornecido'}
+Matéria: ${formData.materia}
+
+Mensagem:
+${formData.mensagem}
+        `.trim()
+    };
+
+    return emailjs.send(
+        EMAILJS_CONFIG.serviceID, 
+        EMAILJS_CONFIG.templateID, 
+        templateParams
+    );
+}
+
 // Main JavaScript functionality for the tutoring website
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -229,15 +301,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Schedule Form Submission
-    if (scheduleForm) {
-        scheduleForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            handleFormSubmission(this, 'Pedido de agendamento enviado! Entrarei em contacto para confirmar os detalhes.');
-            setTimeout(() => {
-                closeModalHandler();
-            }, 2000);
-        });
-    }
+if (scheduleForm) {
+    scheduleForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            nome: document.getElementById('modal-nome').value.trim(),
+            email: document.getElementById('modal-email').value.trim(),
+            telefone: document.getElementById('modal-telefone').value.trim(), // NOVO
+            materia: document.getElementById('modal-materia').value,
+            modalidade: document.getElementById('modal-modalidade').value,
+            mensagem: document.getElementById('modal-mensagem').value.trim() // NOVO
+        };
+        
+        // Validação
+        if (!validateForm(this)) {
+            return;
+        }
+        
+        handleEmailSubmission(this, formData, 'agendamento');
+    });
+}
 
     // Generic form submission handler
     function handleFormSubmission(form, successMessage) {
