@@ -10,6 +10,187 @@
     
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Forçar refresh do cache -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<!-- CSS com versão para forçar refresh -->
+<link rel="stylesheet" href="style.css?v=2.0">
+
+<style>
+/* CSS INLINE PARA GITHUB PAGES - EMERGÊNCIA */
+@media (min-width: 769px) {
+  .nav-menu {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    background: none !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    gap: 32px !important;
+    box-shadow: none !important;
+    transform: none !important;
+    z-index: auto !important;
+    border: none !important;
+    list-style: none !important;
+    margin: 0 !important;
+    order: 2 !important;
+    justify-content: center !important;
+    flex-grow: 1 !important;
+  }
+  
+  .nav-menu li {
+    display: block !important;
+  }
+  
+  .nav-link {
+    display: block !important;
+    color: white !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    padding: 8px 16px !important;
+    transition: color 0.15s ease !important;
+    position: relative !important;
+  }
+  
+  .nav-link:hover,
+  .nav-link.active {
+    color: #32b8c6 !important;
+  }
+}
+
+.navbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+  background: rgba(19, 52, 59, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(50, 184, 198, 0.1) !important;
+}
+
+.nav-content {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 16px 0 !important;
+  width: 100% !important;
+}
+
+.nav-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: #32b8c6 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  order: 1 !important;
+}
+
+.cta-btn {
+  order: 3 !important;
+  display: inline-flex !important;
+  padding: 8px 20px !important;
+  border-radius: 9999px !important;
+}
+
+.nav-toggle {
+  display: none !important;
+}
+
+/* MOBILE CORRIGIDO */
+@media (max-width: 768px) {
+  .navbar {
+    height: 70px !important;
+  }
+  
+  .nav-content {
+    height: 70px !important;
+    padding: 12px 0 !important;
+  }
+  
+  .nav-logo {
+    z-index: 1001 !important;
+    font-size: 16px !important;
+  }
+  
+  .nav-toggle {
+    order: 3 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    cursor: pointer !important;
+    gap: 4px !important;
+    z-index: 1001 !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  .nav-toggle span {
+    width: 24px !important;
+    height: 3px !important;
+    background: #32b8c6 !important;
+    border-radius: 2px !important;
+    transition: all 0.25s ease !important;
+  }
+  
+  .nav-menu {
+    position: fixed !important;
+    top: 70px !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: #fffffe !important;
+    flex-direction: column !important;
+    padding: 24px !important;
+    gap: 16px !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04) !important;
+    z-index: 999 !important;
+    border-top: 1px solid rgba(94, 82, 64, 0.2) !important;
+    transform: translateY(-100%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.25s ease !important;
+    margin: 0 !important;
+    list-style: none !important;
+    display: flex !important;
+  }
+  
+  .nav-menu.active {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  .nav-menu li {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+  
+  .nav-link {
+    display: block !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+    color: #134252 !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+  }
+  
+  .nav-link:hover {
+    background: rgba(94, 82, 64, 0.12) !important;
+    color: #21808d !important;
+  }
+  
+  .cta-btn {
+    display: none !important;
+  }
+}
+</style>
+
+
 </head>
 <body>
     <!-- Navigation -->
