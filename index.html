@@ -7,43 +7,39 @@
     <meta name="description" content="Explicações personalizadas Física e Química. Aulas presenciais e online.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
-<!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-
-
-
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="nav-logo">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Catálise Estudos</span>
-                </div>
-                
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#inicio" class="nav-link">Início</a></li>
-                    <li><a href="#servicos" class="nav-link">Serviços</a></li>
-                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
-                    <li><a href="#testemunhos" class="nav-link">Testemunhos</a></li>
-                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
-                </ul>
-                
-                <button class="btn btn--primary cta-btn" id="agendar-btn">Agendar Aula</button>
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Catálise Estudos</span>
+            </div>
             
-                
-                <div class="nav-toggle" id="nav-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#inicio" class="nav-link">Início</a></li>
+                <li><a href="#servicos" class="nav-link">Serviços</a></li>
+                <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li><a href="#testemunhos" class="nav-link">Testemunhos</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+            
+            <button class="btn btn--primary cta-btn" id="agendar-btn">Agendar Aula</button>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
+
 
     <!-- Hero Section -->
     <section class="hero" id="inicio">
@@ -59,7 +55,6 @@
                 <div class="hero-buttons animate-fade-up">
                     <button class="btn btn--primary btn--lg" id="hero-cta">Começar Agora</button>
                     <button class="btn btn--outline btn--lg" id="saber-mais">Saber Mais</button>
-                </div>
                 </div>
             </div>
         </div>
@@ -113,12 +108,19 @@
                     <h2>Sobre Mim</h2>
                     <h3>Professor Hugo</h3>
                     <p class="about-intro">
-                        Sou o Hugo, investigador científico na área da Química. Estou aqui para ajudar-te a entender a matéria, ganhar segurança e atingir os teus objetivos académicos.
+                        Sou o Hugo, investigador científico na área da Química. Estou aqui para ajudar-te a entender a matéria,
+                        ganhar segurança e atingir os teus objetivos académicos.
                         Online ou Presencialmente!
-                        Sou licenciado e mestre em Química pela Faculdade de Ciências da Universidade do Porto (FCUP) e actualmente sou estudante de doutoramento em Química Sustentável na mesma instituição, onde também trabalho como investigador científico.
-                        Dedico-me a dar explicações a alunos do ensino básico e secundário porque acredito que a química pode ser fascinante quando explicada de forma clara e acessível.
-                        A minha experiência como investigador permite-me trazer uma perspectiva mais profunda da química para as explicações, ajudando os alunos não só a compreender a matéria, mas também a descobrir como ela se aplica no mundo real.
-                        O meu objectivo é simples: tornar a química menos intimidante e mais compreensível, ajudando-te a ganhar confiança e alcançar os teus objectivos académicos, passo-a-passo.
+                        Sou licenciado e mestre em Química pela Faculdade de Ciências da Universidade do Porto (FCUP) e actualmente sou
+                        estudante de doutoramento em Química Sustentável na mesma instituição, onde também trabalho como
+                        investigador científico.
+                        Dedico-me a dar explicações a alunos do ensino básico e secundário porque acredito que a química pode ser
+                        fascinante quando explicada de forma clara e acessível.
+                        A minha experiência como investigador permite-me trazer uma perspectiva mais profunda da química para as
+                        explicações, ajudando os alunos não só a compreender a matéria, mas também a descobrir como ela se aplica no
+                        mundo real.
+                        O meu objectivo é simples: tornar a química menos intimidante e mais compreensível, ajudando-te a ganhar
+                        confiança e alcançar os teus objectivos académicos, passo-a-passo.
                     </p>
                     
                     <div class="about-details">
@@ -148,7 +150,7 @@
                 </div>
                 
                 <div class="about-image animate-fade-up">
-                    <img src="prof_hugo.png" alt="Professor Hugo - Especialista em Física e Química" class="professor-photo">
+                    <img src="Media/Prof_Hugo.png" alt="Professor Hugo - Especialista em Física e Química" class="professor-photo">
                 </div>
             </div>
         </div>
@@ -270,7 +272,7 @@
                         
                         <div class="form-group">
                             <label for="mensagem" class="form-label">Mensagem</label>
-                            <textarea id="mensagem" name="mensagem" class="form-control" rows="5" placeholder="Conta-me um pouco sobre as tuas necessidades, disponibilidade ou dúvidas..."></textarea>
+                            <textarea id="mensagem" name="mensagem" class="form-control" rows="5" placeholder="Conte-me um pouco sobre as suas necessidades..."></textarea>
                         </div>
                         
                         <button type="submit" class="btn btn--primary btn--full-width">Enviar Mensagem</button>
@@ -294,7 +296,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email</h4>
-                            <p>chemreaction@outlook.com</p>
+                            <p>hugodcnt@hotmail.pt</p>
                         </div>
                     </div>
                     
@@ -331,7 +333,7 @@
                         <i class="fas fa-graduation-cap"></i>
                         <span>Catálise Estudos</span>
                     </div>
-                    <p>Transformando dificuldades em sucessos há mais de 10 anos.</p>
+                    <p>Transformando dificuldades em sucessos.</p>
                 </div>
                 
                 <div class="footer-section">
@@ -347,7 +349,7 @@
                     <h4>Contacto</h4>
                     <ul>
                         <li><i class="fas fa-phone"></i> +351 933 237 805</li>
-                        <li><i class="fas fa-envelope"></i> chemreaction@outlook.com</li>
+                        <li><i class="fas fa-envelope"></i> hugodcnt@hotmail.pt</li>
                         <li><i class="fas fa-map-marker-alt"></i> Braga, Portugal</li>
                     </ul>
                 </div>
@@ -355,8 +357,12 @@
                 <div class="footer-section">
                     <h4>Segue-me</h4>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/hugo-duarte-capela-novais-teixeira-38565a129/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://wa.me/351933237805?text=Olá%20Professor%20Hugo,%20gostaria%20de%20saber%20mais%20sobre%20as%20explicações%20de%20Física%20e%20Química" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.linkedin.com/in/seu-perfil-linkedin" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://wa.me/351933237805?text=Olá%20Professor%20Hugo,%20gostaria%20de%20saber%20mais%20sobre%20as%20explicações%20de%20Física%20e%20Química" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -367,64 +373,62 @@
         </div>
     </footer>
 
-<!-- Modal for Scheduling -->
-<div class="modal hidden" id="schedule-modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Agendar Aula</h3>
-            <button class="modal-close" id="close-modal">&times;</button>
-        </div>
-        <div class="modal-body">
-            <form id="schedule-form">
-                <div class="form-group">
-                    <label for="modal-nome" class="form-label">Nome *</label>
-                    <input type="text" id="modal-nome" name="nome" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="modal-email" class="form-label">Correio Electrónico *</label>
-                    <input type="email" id="modal-email" name="email" class="form-control" required>
-                </div>
-                
-                <!-- NOVO CAMPO: Telefone -->
-                <div class="form-group">
-                    <label for="modal-telefone" class="form-label">Telefone</label>
-                    <input type="tel" id="modal-telefone" name="telefone" class="form-control" placeholder="+351 912 345 678">
-                </div>
-                
-                <div class="form-group">
-                    <label for="modal-materia" class="form-label">Matéria *</label>
-                    <select id="modal-materia" name="materia" class="form-control" required>
-                        <option value="">Selecione uma matéria</option>
-                        <option value="fisica-quimica79">Física e Química (7.º ao 9.º)</option>
-                        <option value="fisica-quimica1012">Física e Química (10.º ao 12.º)</option>
-                        <option value="preparacao-exames">Preparação para Exames</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="modal-modalidade" class="form-label">Modalidade *</label>
-                    <select id="modal-modalidade" name="modalidade" class="form-control" required>
-                        <option value="">Selecione a modalidade</option>
-                        <option value="presencial">Presencial</option>
-                        <option value="online">Online</option>
-                    </select>
-                </div>
-                
-                <!-- NOVO CAMPO: Mensagem -->
-                <div class="form-group">
-                    <label for="modal-mensagem" class="form-label">Mensagem</label>
-                    <textarea id="modal-mensagem" name="mensagem" class="form-control" rows="4" placeholder="Conta-me um pouco sobre as tuas necessidades, disponibilidade ou dúvidas..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn--primary btn--full-width">
-                    <i class="fas fa-calendar-alt"></i>
-                    Solicitar Agendamento
-                </button>
-            </form>
+    <!-- Modal for Scheduling -->
+    <div class="modal hidden" id="schedule-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Agendar Aula</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="schedule-form">
+                    <div class="form-group">
+                        <label for="modal-nome" class="form-label">Nome *</label>
+                        <input type="text" id="modal-nome" name="nome" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modal-email" class="form-label">Correio Electrónico *</label>
+                        <input type="email" id="modal-email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modal-telefone" class="form-label">Telefone</label>
+                        <input type="tel" id="modal-telefone" name="telefone" class="form-control" placeholder="+351 912 345 678">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modal-materia" class="form-label">Matéria *</label>
+                        <select id="modal-materia" name="materia" class="form-control" required>
+                            <option value="">Selecione uma matéria</option>
+                            <option value="fisica-quimica79">Física e Química (7.º ao 9.º)</option>
+                            <option value="fisica-quimica1012">Física e Química (10.º ao 12.º)</option>
+                            <option value="preparacao-exames">Preparação para Exames</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modal-modalidade" class="form-label">Modalidade *</label>
+                        <select id="modal-modalidade" name="modalidade" class="form-control" required>
+                            <option value="">Selecione a modalidade</option>
+                            <option value="presencial">Presencial</option>
+                            <option value="online">Online</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modal-mensagem" class="form-label">Mensagem</label>
+                        <textarea id="modal-mensagem" name="mensagem" class="form-control" rows="4" placeholder="Conte-me um pouco sobre as suas necessidades, disponibilidade ou dúvidas..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--full-width">
+                        <i class="fas fa-calendar-alt"></i>
+                        Solicitar Agendamento
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
     <script src="app.js"></script>
 </body>

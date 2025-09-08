@@ -392,5 +392,3 @@ Data: ${new Date().toLocaleDateString('pt-PT')} às ${new Date().toLocaleTimeStr
     console.log('✅ Website Catálise Estudos inicializado com sucesso!');
     console.log('📧 EmailJS funcionando - Formulários prontos para uso');
 });
-
-
