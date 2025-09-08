@@ -2,28 +2,28 @@
 // EMAILJS CONFIGURATION
 // ========================
 
-const EMAILJS_CONFIG = {
-    serviceID: 'service_nooo1v5',
-    templateID: 'template_g99r5xc',
-    publicKey: 'YlgyKX0_nVeBbDxA4'
-};
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Inicializando website Catálise Estudos...');
+    
+    // Inicializar EmailJS
+    emailjs.init("YlgyKX0_nVeBbDxA4");
+    console.log('✅ EmailJS inicializado com sucesso');
 
-// Inicializar EmailJS
-(function() {
-    emailjs.init(EMAILJS_CONFIG.publicKey);
-})();
+    // ========================
+    // FUNÇÕES DE EMAIL
+    // ========================
 
-// Função para enviar agendamento
-function enviarAgendamento(formData) {
-    const templateParams = {
-        from_name: formData.nome,
-        from_email: formData.email,
-        to_name: "Professor Hugo",
-        materia: formData.materia,
-        modalidade: formData.modalidade,
-        data_atual: new Date().toLocaleDateString('pt-PT'),
-        message: `
-Nova solicitação de agendamento de aula:
+    function enviarAgendamento(formData) {
+        console.log('📧 Enviando agendamento...', formData);
+        
+        const templateParams = {
+            from_name: formData.nome,
+            from_email: formData.email,
+            to_name: 'Professor Hugo',
+            materia: formData.materia,
+            modalidade: formData.modalidade,
+            message: `
+🎓 NOVA SOLICITAÇÃO DE AGENDAMENTO
 
 👤 Nome: ${formData.nome}
 📧 Email: ${formData.email}
@@ -34,73 +34,75 @@ Nova solicitação de agendamento de aula:
 💬 Mensagem do aluno:
 ${formData.mensagem || 'Sem mensagem adicional'}
 
-O aluno gostaria de agendar uma aula.
-        `.trim()
-    };
+---
+Enviado através do website Catálise Estudos
+Data: ${new Date().toLocaleDateString('pt-PT')} às ${new Date().toLocaleTimeString('pt-PT')}
+            `.trim()
+        };
 
-    return emailjs.send(
-        EMAILJS_CONFIG.serviceID, 
-        EMAILJS_CONFIG.templateID, 
-        templateParams
-    );
-}
+        return emailjs.send('service_nooo1v5', 'template_g99r5xc', templateParams);
+    }
 
-// Função para enviar contacto
-function enviarContacto(formData) {
-    const templateParams = {
-        from_name: formData.nome,
-        from_email: formData.email,
-        to_name: "Professor Hugo",
-        materia: formData.materia,
-        modalidade: 'Contacto Geral',
-        data_atual: new Date().toLocaleDateString('pt-PT'),
-        message: `
-Nova mensagem de contacto:
+    function enviarContacto(formData) {
+        console.log('📧 Enviando contacto...', formData);
+        
+        const templateParams = {
+            from_name: formData.nome,
+            from_email: formData.email,
+            to_name: 'Professor Hugo',
+            materia: formData.materia,
+            modalidade: 'Contacto Geral',
+            message: `
+📞 NOVA MENSAGEM DE CONTACTO
 
 👤 Nome: ${formData.nome}
 📧 Email: ${formData.email}
 📞 Telefone: ${formData.telefone || 'Não fornecido'}
-📚 Matéria: ${formData.materia}
+📚 Matéria de Interesse: ${formData.materia}
 
 💬 Mensagem:
 ${formData.mensagem}
-        `.trim()
-    };
 
-    return emailjs.send(
-        EMAILJS_CONFIG.serviceID, 
-        EMAILJS_CONFIG.templateID, 
-        templateParams
-    );
-}
+---
+Enviado através do website Catálise Estudos
+Data: ${new Date().toLocaleDateString('pt-PT')} às ${new Date().toLocaleTimeString('pt-PT')}
+            `.trim()
+        };
 
-// ========================
-// MAIN WEBSITE FUNCTIONALITY
-// ========================
+        return emailjs.send('service_nooo1v5', 'template_g99r5xc', templateParams);
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Website carregado - EmailJS inicializado');
-    
-    // Navigation elements
+    // ========================
+    // ELEMENTOS DOM
+    // ========================
+
     const navbar = document.getElementById('navbar');
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
     
-    // Modal elements
     const scheduleModal = document.getElementById('schedule-modal');
     const agendarBtns = document.querySelectorAll('#agendar-btn, #hero-cta');
     const closeModal = document.getElementById('close-modal');
     
-    // Form elements
     const contactForm = document.getElementById('contact-form');
     const scheduleForm = document.getElementById('schedule-form');
-    
-    // Other elements
     const saberMaisBtn = document.getElementById('saber-mais');
 
-    // Debug
-    console.log('📧 EmailJS Config:', EMAILJS_CONFIG);
+    console.log('📋 Elementos encontrados:', {
+        navbar: !!navbar,
+        navToggle: !!navToggle,
+        navMenu: !!navMenu,
+        scheduleModal: !!scheduleModal,
+        agendarBtns: agendarBtns.length,
+        closeModal: !!closeModal,
+        contactForm: !!contactForm,
+        scheduleForm: !!scheduleForm
+    });
+
+    // ========================
+    // NAVEGAÇÃO
+    // ========================
 
     // Mobile Navigation Toggle
     if (navToggle && navMenu) {
@@ -136,45 +138,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 navbar.classList.remove('scrolled');
             }
         }
-        updateActiveNavLink();
-        animateOnScroll();
     });
 
-    // Update active navigation link
-    function updateActiveNavLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPosition = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                if (navLink) {
-                    navLink.classList.add('active');
-                }
-            }
-        });
-    }
-
-    // Animate elements on scroll
-    function animateOnScroll() {
-        const animatedElements = document.querySelectorAll('.animate-fade-up');
-        
-        animatedElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const elementVisible = 150;
-            
-            if (elementTop < window.innerHeight - elementVisible) {
-                element.style.animationPlayState = 'running';
-            }
-        });
-    }
-
-    // Smooth scrolling for navigation links
+    // Smooth scrolling
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -191,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // "Saber Mais" button functionality
+    // Saber Mais button
     if (saberMaisBtn) {
         saberMaisBtn.addEventListener('click', function() {
             const servicesSection = document.getElementById('servicos');
@@ -205,8 +171,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Modal functionality
+    // ========================
+    // MODAL FUNCTIONALITY
+    // ========================
+
     function openModal() {
+        console.log('📱 Abrindo modal...');
         if (scheduleModal) {
             scheduleModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
@@ -219,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeModalHandler() {
+        console.log('📱 Fechando modal...');
         if (scheduleModal) {
             scheduleModal.classList.add('hidden');
             document.body.style.overflow = '';
@@ -229,17 +200,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Agendar buttons
+    // Modal event listeners
     agendarBtns.forEach(btn => {
         if (btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
+                console.log('🎯 Botão agendar clicado');
                 openModal();
             });
         }
     });
 
-    // Close modal
     if (closeModal) {
         closeModal.addEventListener('click', function(e) {
             e.preventDefault();
@@ -247,7 +218,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Close modal when clicking outside
     if (scheduleModal) {
         scheduleModal.addEventListener('click', function(e) {
             if (e.target === scheduleModal) {
@@ -256,37 +226,63 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && scheduleModal && !scheduleModal.classList.contains('hidden')) {
+            closeModalHandler();
+        }
+    });
+
     // ========================
-    // FORM SUBMISSIONS - CORRIGIDO
+    // FORM SUBMISSIONS
     // ========================
 
-    // Schedule Form Submission
+    // Schedule Form (Modal)
     if (scheduleForm) {
         scheduleForm.addEventListener('submit', function(e) {
             e.preventDefault();
             console.log('📝 Formulário de agendamento submetido');
             
             const formData = {
-                nome: document.getElementById('modal-nome').value.trim(),
-                email: document.getElementById('modal-email').value.trim(),
-                telefone: document.getElementById('modal-telefone').value.trim(),
-                materia: document.getElementById('modal-materia').value,
-                modalidade: document.getElementById('modal-modalidade').value,
-                mensagem: document.getElementById('modal-mensagem').value.trim()
+                nome: document.getElementById('modal-nome')?.value.trim() || '',
+                email: document.getElementById('modal-email')?.value.trim() || '',
+                telefone: document.getElementById('modal-telefone')?.value.trim() || '',
+                materia: document.getElementById('modal-materia')?.value || '',
+                modalidade: document.getElementById('modal-modalidade')?.value || '',
+                mensagem: document.getElementById('modal-mensagem')?.value.trim() || ''
             };
             
-            console.log('📋 Dados do formulário:', formData);
+            console.log('📋 Dados coletados:', formData);
             
-            // Validação básica
-            if (!formData.nome || !formData.email || !formData.materia || !formData.modalidade) {
-                alert('❌ Por favor, preencha todos os campos obrigatórios.');
+            // Validação
+            if (!formData.nome) {
+                alert('❌ Por favor, preencha o seu nome.');
+                document.getElementById('modal-nome')?.focus();
                 return;
             }
-
-            // Email validation
+            
+            if (!formData.email) {
+                alert('❌ Por favor, preencha o seu email.');
+                document.getElementById('modal-email')?.focus();
+                return;
+            }
+            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(formData.email)) {
                 alert('❌ Por favor, introduza um email válido.');
+                document.getElementById('modal-email')?.focus();
+                return;
+            }
+            
+            if (!formData.materia) {
+                alert('❌ Por favor, selecione uma matéria.');
+                document.getElementById('modal-materia')?.focus();
+                return;
+            }
+            
+            if (!formData.modalidade) {
+                alert('❌ Por favor, selecione uma modalidade.');
+                document.getElementById('modal-modalidade')?.focus();
                 return;
             }
             
@@ -296,20 +292,18 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
             submitBtn.disabled = true;
             
-            console.log('📧 Enviando email...');
-            
             // Send email
             enviarAgendamento(formData)
                 .then(function(response) {
-                    console.log('✅ Email enviado com sucesso:', response);
-                    alert('✅ Agendamento solicitado com sucesso!\n\nO Professor Hugo entrará em contacto brevemente.');
+                    console.log('✅ Agendamento enviado com sucesso:', response);
+                    alert('✅ Pedido de agendamento enviado com sucesso!\n\nO Professor Hugo entrará em contacto brevemente através do email ou telefone fornecido.');
                     
                     scheduleForm.reset();
                     closeModalHandler();
                 })
                 .catch(function(error) {
-                    console.error('❌ Erro ao enviar email:', error);
-                    alert('❌ Erro ao enviar solicitação.\n\nTente contactar diretamente:\n📞 +351 933 237 805\n📧 hugodcnt@hotmail.pt');
+                    console.error('❌ Erro ao enviar agendamento:', error);
+                    alert('❌ Ocorreu um erro ao enviar o pedido.\n\nPor favor, contacte diretamente:\n📞 +351 933 237 805\n📧 hugodcnt@hotmail.pt');
                 })
                 .finally(function() {
                     submitBtn.innerHTML = originalHTML;
@@ -317,51 +311,72 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     }
-    
-    // Contact Form Submission
+
+    // Contact Form
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             console.log('📝 Formulário de contacto submetido');
             
             const formData = {
-                nome: document.getElementById('nome').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                telefone: document.getElementById('telefone').value.trim(),
-                materia: document.getElementById('materia').value,
-                mensagem: document.getElementById('mensagem').value.trim()
+                nome: document.getElementById('nome')?.value.trim() || '',
+                email: document.getElementById('email')?.value.trim() || '',
+                telefone: document.getElementById('telefone')?.value.trim() || '',
+                materia: document.getElementById('materia')?.value || '',
+                mensagem: document.getElementById('mensagem')?.value.trim() || ''
             };
             
-            console.log('📋 Dados do contacto:', formData);
+            console.log('📋 Dados de contacto coletados:', formData);
             
             // Validação
-            if (!formData.nome || !formData.email || !formData.materia || !formData.mensagem) {
-                alert('❌ Por favor, preencha todos os campos obrigatórios.');
+            if (!formData.nome) {
+                alert('❌ Por favor, preencha o seu nome.');
+                document.getElementById('nome')?.focus();
                 return;
             }
-
+            
+            if (!formData.email) {
+                alert('❌ Por favor, preencha o seu email.');
+                document.getElementById('email')?.focus();
+                return;
+            }
+            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(formData.email)) {
                 alert('❌ Por favor, introduza um email válido.');
+                document.getElementById('email')?.focus();
                 return;
             }
             
+            if (!formData.materia) {
+                alert('❌ Por favor, selecione uma matéria.');
+                document.getElementById('materia')?.focus();
+                return;
+            }
+            
+            if (!formData.mensagem) {
+                alert('❌ Por favor, escreva uma mensagem.');
+                document.getElementById('mensagem')?.focus();
+                return;
+            }
+            
+            // Loading state
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalHTML = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
             submitBtn.disabled = true;
             
-            console.log('📧 Enviando contacto...');
-            
+            // Send email
             enviarContacto(formData)
                 .then(function(response) {
                     console.log('✅ Contacto enviado com sucesso:', response);
                     alert('✅ Mensagem enviada com sucesso!\n\nO Professor Hugo entrará em contacto brevemente.');
+                    
                     contactForm.reset();
                 })
                 .catch(function(error) {
                     console.error('❌ Erro ao enviar contacto:', error);
-                    alert('❌ Erro ao enviar mensagem.\n\nTente contactar diretamente:\n📞 +351 933 237 805\n📧 hugodcnt@hotmail.pt');
+                    alert('❌ Ocorreu um erro ao enviar a mensagem.\n\nPor favor, contacte diretamente:\n📞 +351 933 237 805\n📧 hugodcnt@hotmail.pt');
                 })
                 .finally(function() {
                     submitBtn.innerHTML = originalHTML;
@@ -370,10 +385,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initialize animations
-    setTimeout(() => {
-        animateOnScroll();
-    }, 100);
+    // ========================
+    // FINALIZAÇÃO
+    // ========================
 
-    console.log('✅ Professor Hugo - Catálise Estudos inicializado com sucesso!');
+    console.log('✅ Website Catálise Estudos inicializado com sucesso!');
+    console.log('📧 EmailJS funcionando - Formulários prontos para uso');
 });
