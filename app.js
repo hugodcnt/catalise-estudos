@@ -303,7 +303,7 @@ Data: ${new Date().toLocaleDateString('pt-PT')} às ${new Date().toLocaleTimeStr
                 })
                 .catch(function(error) {
                     console.error('❌ Erro ao enviar agendamento:', error);
-                    alert('❌ Ocorreu um erro ao enviar o pedido.\n\nPor favor, contacte diretamente:\n📞 +351 933 237 805\n📧 hugodcnt@hotmail.pt');
+                    alert('❌ Ocorreu um erro ao enviar o pedido.\n\nPor favor, contacte diretamente:\n📞 +351 933 237 805\n📧 chemreaction@outlook.com');
                 })
                 .finally(function() {
                     submitBtn.innerHTML = originalHTML;
@@ -376,7 +376,7 @@ Data: ${new Date().toLocaleDateString('pt-PT')} às ${new Date().toLocaleTimeStr
                 })
                 .catch(function(error) {
                     console.error('❌ Erro ao enviar contacto:', error);
-                    alert('❌ Ocorreu um erro ao enviar a mensagem.\n\nPor favor, contacte diretamente:\n📞 +351 933 237 805\n📧 hugodcnt@hotmail.pt');
+                    alert('❌ Ocorreu um erro ao enviar a mensagem.\n\nPor favor, contacte diretamente:\n📞 +351 933 237 805\n📧 chemreaction@outlook.com');
                 })
                 .finally(function() {
                     submitBtn.innerHTML = originalHTML;
